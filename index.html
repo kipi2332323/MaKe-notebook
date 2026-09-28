@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="马克笔记，一个安静、轻巧的本地笔记空间。">
+  <title>马克笔记</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23e26745'/%3E%3Cpath d='M9 23V9l7 8 7-8v14' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E">
+  <style>
+    :root{color-scheme:light;--ink:#262a30;--muted:#72777f;--line:#e8e9ec;--accent:#c94e2d;--soft:#fff0e9;--sidebar:#f7f8fa;font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif;font-size:100%}
+    *{box-sizing:border-box}body{margin:0;color:var(--ink);background:white}button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.4;cursor:default}button,input,textarea,select{-webkit-tap-highlight-color:transparent}button{color:inherit}button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #dc805f;outline-offset:3px}input:focus-visible,textarea:focus-visible{outline:2px solid #e7a68e;outline-offset:4px}[hidden]{display:none!important}svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}button{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;background:transparent}.app{height:100vh;height:100dvh;display:grid;grid-template-columns:320px minmax(0,1fr)}
+    .sidebar{display:flex;flex-direction:column;background:var(--sidebar);border-right:1px solid var(--line);min-height:0}.brand{display:flex;align-items:center;gap:12px;padding:32px 26px 27px}.brand-icon{display:grid;place-items:center;width:39px;height:39px;background:#e26745;color:white;border-radius:12px}.brand-icon svg{width:23px;height:23px;stroke-width:2.5}.brand-name{font-size:1.3125rem;letter-spacing:1px;font-weight:750}.brand-sub{font-size:0.75rem;color:var(--muted);letter-spacing:2px;margin-top:4px}.sidebar-controls{padding:0 22px}.new-button{background:var(--ink);color:white;border-radius:9px;width:100%;padding:13px;font-size:0.875rem;font-weight:600;box-shadow:0 3px 6px #262a3010}.new-button:hover{background:#41454b}.shortcut{margin-left:auto;color:#c0c3c9;font-size:0.75rem;font-weight:400}.search-box{display:flex;gap:9px;align-items:center;margin-top:18px;padding:10px 11px;background:white;border:1px solid #e2e4e8;border-radius:8px;color:#838890}.search-box svg{width:17px}.search-box input{width:100%;border:0;background:transparent;font-size:0.875rem;min-width:0;color:var(--ink)}.search-box input:focus{outline:none}.search-box:focus-within{border-color:#d28267;box-shadow:0 0 0 2px #e2674512}.tabs{display:flex;gap:21px;border-bottom:1px solid var(--line);margin-top:21px}.tab{font-size:0.875rem;padding:0 0 12px;position:relative;color:var(--muted)}.tab.active{color:var(--accent);font-weight:650}.tab.active:after{position:absolute;content:"";bottom:-1px;left:0;right:0;height:2px;background:var(--accent)}.badge{font-size:0.75rem;background:#e9ebef;padding:1px 6px;border-radius:5px}.tab.active .badge{background:#f7e1d8;color:var(--accent)}.list-heading{display:flex;align-items:center;justify-content:space-between;padding:20px 25px 10px;color:var(--muted);font-size:0.75rem;letter-spacing:1px}.list-heading select{border:0;background:transparent;color:var(--muted);font-size:0.75rem;max-width:125px;cursor:pointer}.note-list{overflow:auto;flex:1;padding:0 12px 16px}.note-card{display:block;text-align:left;width:100%;padding:17px 15px;margin-bottom:6px;border:1px solid transparent;border-radius:9px;position:relative}.note-card:hover{background:#eef0f3}.note-card.selected{background:var(--soft);border-color:#f4d4c5}.note-card.selected:before{content:"";position:absolute;left:-1px;top:19px;bottom:19px;width:3px;border-radius:4px;background:#db704c}.card-title{font-size:0.9375rem;font-weight:650;display:flex;align-items:center;gap:8px;line-height:1.5}.card-title span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}.card-title svg{width:14px;height:14px;color:var(--accent);fill:#e2674520}.card-summary{font-size:0.8125rem;color:var(--muted);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-top:8px;line-height:1.6}.card-meta{display:flex;align-items:center;justify-content:space-between;margin-top:13px;font-size:0.75rem;color:#81858b}.selected .card-meta{color:#a36953}.sidebar-footer{padding:19px 24px;border-top:1px solid var(--line);font-size:0.75rem;color:var(--muted);display:flex;align-items:center;gap:8px}.sidebar-footer svg{width:15px;height:15px}.empty-list{padding:32px 12px;color:var(--muted);font-size:0.875rem;text-align:center;line-height:1.8}
+    .workspace{display:flex;flex-direction:column;min-width:0;min-height:0}.topbar{min-height:78px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 36px}.breadcrumb{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:0.875rem;min-width:0}.breadcrumb svg{width:17px;height:17px}.breadcrumb strong{font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px}.slash{color:#c3c6cb}.actions{display:flex;gap:9px;align-items:center}.icon-button{width:35px;height:35px;border-radius:7px;color:var(--muted)}.icon-button:hover{background:#f2f3f5;color:var(--ink)}.icon-button[aria-pressed="true"]{color:var(--accent);background:var(--soft)}.icon-button[aria-pressed="true"] svg{fill:#e267451a}.divider{width:1px;height:20px;background:var(--line);margin:0 5px}.save-state{font-size:0.75rem;color:var(--muted);display:flex;align-items:center;gap:6px;white-space:nowrap;margin-right:12px}.save-state svg{width:15px;height:15px}.save-state.error{color:#bc3f2d}.editor-wrap{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;padding:48px clamp(28px,6vw,108px) 16px}.document-label{display:flex;align-items:center;gap:7px;font-size:0.75rem;letter-spacing:2px;color:var(--accent);font-weight:600;margin-bottom:19px}.document-label svg{width:16px;height:16px}.title-input{width:100%;border:0;color:var(--ink);background:transparent;padding:0;font-size:clamp(25px,2.5vw,36px);font-weight:700;line-height:1.5;letter-spacing:-.7px}.title-input::placeholder{color:#b5b8bd}.document-meta{font-size:0.75rem;color:var(--muted);margin:15px 0 28px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}.document-meta svg{width:14px;height:14px}.editor-rule{height:1px;background:var(--line);flex-shrink:0}.body-input{resize:none;display:block;width:100%;flex:1;min-height:260px;border:0;background:transparent;padding:28px 0 15px;color:#41464d;line-height:2;font-size:1rem;tab-size:2}.body-input:focus{outline:none}.body-input::placeholder{color:#a1a6ad}.editor-footer{padding:16px 36px;display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);color:var(--muted);font-size:0.75rem}.footer-right{display:flex;gap:22px}.empty-workspace{flex:1;display:grid;place-content:center;text-align:center;padding:30px}.empty-symbol{margin:auto auto 18px;color:var(--accent);background:var(--soft);padding:18px;border-radius:18px;width:68px;height:68px}.empty-symbol svg{width:32px;height:32px}.empty-workspace h1{font-size:1.5rem}.empty-workspace p{color:var(--muted);line-height:1.8}.empty-workspace button{margin:20px auto;width:auto;padding:12px 26px}.mobile-toggle,.mobile-close{display:none}.backdrop{display:none}.toast{position:fixed;bottom:66px;left:50%;transform:translateX(-50%);z-index:5;background:var(--ink);color:white;padding:13px 18px;border-radius:10px;box-shadow:0 8px 25px #0002;display:flex;align-items:center;gap:20px;font-size:0.875rem;max-width:calc(100vw - 28px)}.toast button{color:#ffc0a7;text-decoration:underline;white-space:nowrap}.toast-close{color:white!important;text-decoration:none!important;padding:3px}.toast-close svg{width:15px;height:15px}dialog{border:1px solid var(--line);border-radius:16px;padding:28px;width:390px;max-width:calc(100% - 32px);color:var(--ink);box-shadow:0 20px 80px #0002}dialog::backdrop{background:#18202c55}dialog h2{font-size:1.3125rem;margin:0 0 14px}dialog p{font-size:0.875rem;color:var(--muted);line-height:1.8;overflow-wrap:anywhere}.dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:24px}.dialog-actions button{padding:10px 19px;border-radius:7px;background:#f0f1f3}.dialog-actions .danger{background:#ba432b;color:white}.storage-warning{font-size:0.875rem;line-height:1.6;padding:12px 24px;color:#9b3a22;background:#fff0e9;border-bottom:1px solid #f4d4c5}
+    @media(min-width:1600px){.app{grid-template-columns:350px minmax(0,1fr)}.editor-wrap{padding-left:max(80px,calc((100vw - 1170px)/2));padding-right:max(80px,calc((100vw - 1170px)/2))}}
+    @media(max-width:1000px){.app{grid-template-columns:280px minmax(0,1fr)}.topbar{padding:16px 24px}.breadcrumb strong{max-width:140px}.save-state{margin-right:0}.save-state span{display:none}.editor-wrap{padding-top:35px}.editor-footer{padding:15px 24px}.footer-hint{display:none}}
+    @media(max-width:680px){.app{display:block}.workspace{height:100dvh}.sidebar{position:fixed;left:0;top:0;bottom:0;width:min(320px,88vw);z-index:10;transform:translateX(-100%);transition:transform .18s}.sidebar.open{transform:translateX(0);box-shadow:12px 0 40px #0002}.backdrop.open{display:block;position:fixed;inset:0;background:#18202c55;z-index:9}.mobile-toggle,.mobile-close{display:inline-flex}.mobile-close{margin-left:auto}.topbar{padding:13px 16px;min-height:66px}.breadcrumb{gap:8px}.breadcrumb>svg,.breadcrumb .slash,.breadcrumb>span:first-of-type{display:none}.breadcrumb strong{max-width:125px;font-size:0.8125rem}.actions{gap:2px}.actions .divider{margin:0 3px}.editor-wrap{padding:30px 24px 10px}.title-input{font-size:1.6875rem}.document-meta{margin-bottom:23px;gap:6px}.body-input{padding-top:22px}.editor-footer{padding:14px 24px}.footer-right{gap:14px}.brand{padding-top:25px}.document-label{margin-bottom:15px}}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+  </style>
+</head>
+<body>
+  <svg hidden aria-hidden="true"><defs>
+    <symbol id="i-mark" viewBox="0 0 24 24"><path d="M5 19V5l7 8 7-8v14"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></symbol>
+    <symbol id="i-note" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM14 3v6h6M8 13h8M8 17h5"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+  </defs></svg>
+  <div class="app">
+    <div class="backdrop" id="backdrop"></div>
+    <aside class="sidebar" id="sidebar" aria-label="笔记列表">
+      <div class="brand"><div class="brand-icon"><svg aria-hidden="true"><use href="#i-mark"/></svg></div><div><div class="brand-name">马克笔记</div><div class="brand-sub">永远相信美好的事即将发生</div></div><button class="icon-button mobile-close" aria-label="关闭笔记列表"><svg><use href="#i-close"/></svg></button></div>
+      <div class="sidebar-controls">
+        <button class="new-button" id="new-note"><svg aria-hidden="true"><use href="#i-plus"/></svg>新建笔记<span class="shortcut">Alt + N</span></button>
+        <label class="search-box"><svg aria-hidden="true"><use href="#i-search"/></svg><input id="search" type="search" placeholder="搜索笔记…" aria-label="搜索笔记" autocomplete="off"></label>
+        <div class="tabs" aria-label="筛选笔记"><button class="tab active" id="all-tab" aria-pressed="true">全部笔记 <span class="badge" id="all-count">0</span></button><button class="tab" id="star-tab" aria-pressed="false">已收藏 <span class="badge" id="star-count">0</span></button></div>
+      </div>
+      <div class="list-heading"><span id="list-label">我的笔记</span><select id="sort" aria-label="笔记排序"><option value="updated">最近编辑</option><option value="created">最近创建</option><option value="title">标题排序</option></select></div>
+      <nav class="note-list" id="note-list" aria-label="选择笔记"></nav>
+      <div class="sidebar-footer"><svg aria-hidden="true"><use href="#i-lock"/></svg>本地保存 · 想法只属于你</div>
+    </aside>
+    <main class="workspace">
+      <header class="topbar">
+        <div class="breadcrumb"><button class="icon-button mobile-toggle" id="open-list" aria-label="打开笔记列表" aria-expanded="false" aria-controls="sidebar"><svg><use href="#i-menu"/></svg></button><svg aria-hidden="true"><use href="#i-note"/></svg><span>我的笔记</span><span class="slash">/</span><strong id="breadcrumb-title">欢迎使用马克笔记</strong></div>
+        <div class="actions"><div class="save-state" id="save-state" role="status" title="已保存到当前浏览器"><svg aria-hidden="true"><use href="#i-check"/></svg><span>已保存到本地</span></div><div class="divider"></div><button class="icon-button" id="favorite" title="收藏笔记" aria-label="收藏笔记" aria-pressed="false"><svg aria-hidden="true"><use href="#i-star"/></svg></button><button class="icon-button" id="export" title="导出为 TXT" aria-label="导出为 TXT"><svg aria-hidden="true"><use href="#i-download"/></svg></button><button class="icon-button" id="delete" title="删除笔记" aria-label="删除笔记"><svg aria-hidden="true"><use href="#i-trash"/></svg></button></div>
+      </header>
+      <div class="storage-warning" id="storage-warning" role="alert" hidden></div>
+      <section class="editor-wrap" id="editor" aria-label="编辑笔记">
+        <div class="document-label"><svg aria-hidden="true"><use href="#i-note"/></svg><span>自由记录，自在思考</span></div>
+        <input class="title-input" id="note-title" aria-label="笔记标题" placeholder="无标题笔记" maxlength="200" autocomplete="off">
+        <div class="document-meta"><svg aria-hidden="true"><use href="#i-clock"/></svg><span id="created-at"></span><span>·</span><span id="updated-at"></span></div>
+        <div class="editor-rule"></div>
+        <textarea class="body-input" id="note-content" aria-label="笔记内容" placeholder="从一个想法开始，写下你的第一句话…" spellcheck="false"></textarea>
+      </section>
+      <section class="empty-workspace" id="empty-workspace" hidden><div class="empty-symbol"><svg aria-hidden="true"><use href="#i-note"/></svg></div><h1>给想法一个落脚的地方</h1><p>新建一篇笔记，记录此刻的灵感。</p><button class="new-button" id="empty-new"><svg aria-hidden="true"><use href="#i-plus"/></svg>新建笔记</button></section>
+      <footer class="editor-footer"><span id="note-total">共 0 篇笔记</span><div class="footer-right"><span class="footer-hint">随写随存，让思绪不断</span><span id="word-count">0 字</span></div></footer>
+    </main>
+  </div>
+  <dialog id="delete-dialog" aria-labelledby="delete-heading"><h2 id="delete-heading">删除这篇笔记？</h2><p id="delete-message"></p><div class="dialog-actions"><button id="cancel-delete" autofocus>取消</button><button class="danger" id="confirm-delete">删除笔记</button></div></dialog>
+  <div class="toast" id="toast" role="status" hidden><span id="toast-message"></span><button id="undo" hidden>撤销删除</button><button class="toast-close" id="close-toast" aria-label="关闭提示"><svg><use href="#i-close"/></svg></button></div>
+  <script>
+  (() => {
+    'use strict';
+    const KEY = 'mark-notes-v1';
+    const $ = id => document.getElementById(id);
+    let notes = [], selectedId = null, filter = 'all', deleted = null, saveFailed = false, storageLocked = false, storageConflict = false;
+    const stamp = () => new Date().toISOString();
+    const uid = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    const titleOf = note => note.title.trim() || '无标题笔记';
+    const current = () => notes.find(note => note.id === selectedId);
+    const countChars = text => Array.from(text.replace(/\s/g, '')).length;
+    const icon = name => { const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); const use = document.createElementNS(svg.namespaceURI, 'use'); use.setAttribute('href', `#i-${name}`); svg.setAttribute('aria-hidden', 'true'); svg.append(use); return svg; };
+    const dateText = value => new Intl.DateTimeFormat('zh-CN', {month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(value));
+    function warn(message) { $('storage-warning').hidden = false; $('storage-warning').textContent = message; }
+    function save() {
+      try {
+        if (storageLocked) throw new Error('storage locked');
+        localStorage.setItem(KEY, JSON.stringify({version:1, notes, selectedId}));
+        saveFailed = false;
+      } catch (_) { saveFailed = true; warn(storageConflict ? '其他窗口已修改笔记。为避免覆盖，当前窗口已暂停保存，请先导出当前内容，再刷新读取最新笔记。' : storageLocked ? '原有存储数据无法读取，已保留原数据。当前编辑仅在本次页面有效，请使用右上角导出保存。' : '本地保存失败。请先导出重要笔记，避免刷新或关闭后丢失内容。'); }
+      $('save-state').classList.toggle('error', saveFailed);
+      $('save-state').querySelector('span').textContent = saveFailed ? '未保存，请导出' : '已保存到本地';
+      $('save-state').title = saveFailed ? '未保存，请导出' : '已保存到当前浏览器';
+      $('save-state').querySelector('use').setAttribute('href', saveFailed ? '#i-close' : '#i-check');
+      if (!saveFailed) $('storage-warning').hidden = true;
+    }
+    function seed() {
+      const now = stamp();
+      return [
+        {id:uid(),title:'欢迎使用马克笔记',content:'好的想法，值得被认真记下。\n\n这里是你的私人笔记空间。无论是突然闪现的灵感、读书时的感悟，还是今天要完成的小事，都可以从这里开始。\n\n从这一篇开始\n\n点击标题或正文，就可以直接编辑。内容会自动保存在当前浏览器，下一次打开时，还能接着写。\n\n让记录更轻松\n\n＋  点击左侧「新建笔记」，开启新的记录。\n☆  收藏重要的笔记，方便随时回看。\n⌕  通过搜索，找到标题或正文中的关键词。\n↓  将笔记导出为 TXT 文件，留一份自己的备份。\n\n小提醒\n\n笔记保存在当前设备的浏览器中，不会同步到其他设备。清理浏览器数据会移除笔记，重要内容记得导出备份。\n\n现在，写下你的第一个想法吧。',favorite:true,createdAt:now,updatedAt:now},
+        {id:uid(),title:'灵感收集箱',content:'不必急着整理，先把想法留下来。\n\n・想读的书\n・值得尝试的小项目\n・偶然听到的一句话\n\n今天的灵感：\n',favorite:false,createdAt:now,updatedAt:now},
+        {id:uid(),title:'本周的小目标',content:'把大目标，拆成能开始的小事。\n\n□ 阅读 20 页书\n□ 整理一次工作笔记\n□ 留出一段不被打扰的时间\n\n本周回顾\n\n做得不错的事：\n\n下周想改进的事：\n',favorite:false,createdAt:now,updatedAt:now}
+      ];
+    }
+    function load() {
+      try {
+        const raw = localStorage.getItem(KEY);
+        if (raw === null) { notes = seed(); selectedId = notes[0].id; save(); return; }
+        const data = JSON.parse(raw);
+        if (data.version !== 1 || !Array.isArray(data.notes) || !data.notes.every(n => n && typeof n.id === 'string' && typeof n.title === 'string' && typeof n.content === 'string' && typeof n.favorite === 'boolean' && typeof n.createdAt === 'string' && typeof n.updatedAt === 'string' && Number.isFinite(Date.parse(n.createdAt)) && Number.isFinite(Date.parse(n.updatedAt))) || new Set(data.notes.map(n=>n.id)).size !== data.notes.length) throw new Error('Invalid notes');
+        notes = data.notes;
+        selectedId = notes.some(n=>n.id===data.selectedId) ? data.selectedId : notes[0]?.id || null;
+      } catch (_) { storageLocked = true; save(); }
+    }
+    function visibleNotes() {
+      const query = $('search').value.trim().toLocaleLowerCase();
+      return notes.filter(n => (filter === 'all' || n.favorite) && (!query || `${n.title}\n${n.content}`.toLocaleLowerCase().includes(query))).sort((a,b) => $('sort').value === 'title' ? titleOf(a).localeCompare(titleOf(b),'zh-CN') : Date.parse(b[$('sort').value==='created'?'createdAt':'updatedAt'])-Date.parse(a[$('sort').value==='created'?'createdAt':'updatedAt']));
+    }
+    function renderList() {
+      $('all-count').textContent = notes.length;
+      $('star-count').textContent = notes.filter(n=>n.favorite).length;
+      $('note-total').textContent = `共 ${notes.length} 篇笔记`;
+      $('all-tab').classList.toggle('active',filter==='all'); $('all-tab').setAttribute('aria-pressed',filter==='all');
+      $('star-tab').classList.toggle('active',filter==='star'); $('star-tab').setAttribute('aria-pressed',filter==='star');
+      $('list-label').textContent = $('search').value.trim() ? '搜索结果' : filter==='star' ? '收藏的笔记' : '我的笔记';
+      const list = $('note-list'); list.replaceChildren();
+      const visible = visibleNotes();
+      if (!visible.length) { const empty = document.createElement('div'); empty.className='empty-list'; empty.textContent=$('search').value.trim()?'没有找到相关笔记，换个关键词试试。':filter==='star'?'还没有收藏，点击笔记右上角的星标即可收藏。':'还没有笔记，写下第一个想法吧。'; list.append(empty); }
+      visible.forEach(note => {
+        const card = document.createElement('button'); card.type='button'; card.className=`note-card${note.id===selectedId?' selected':''}`; card.setAttribute('aria-label',titleOf(note)); if(note.id===selectedId)card.setAttribute('aria-current','true');
+        const heading=document.createElement('div'); heading.className='card-title'; const title=document.createElement('span'); title.textContent=titleOf(note); heading.append(title); if(note.favorite)heading.append(icon('star'));
+        const summary=document.createElement('div'); summary.className='card-summary'; summary.textContent=note.content.replace(/\s+/g,' ').trim()||'还没有内容，开始记录吧…';
+        const meta=document.createElement('div'); meta.className='card-meta'; const date=document.createElement('span'); date.textContent=dateText(note.updatedAt); const count=document.createElement('span'); count.textContent=`${countChars(note.content)} 字`; meta.append(date,count);
+        card.append(heading,summary,meta); card.addEventListener('click',()=>{selectedId=note.id;save();renderList();renderEditor();closeSidebar();}); list.append(card);
+      });
+    }
+    function renderMeta() {
+      const note=current(); if(!note)return;
+      $('breadcrumb-title').textContent=titleOf(note);
+      $('created-at').textContent=`创建于 ${dateText(note.createdAt)}`;
+      $('updated-at').textContent=`编辑于 ${dateText(note.updatedAt)}`;
+      $('word-count').textContent=`${countChars(note.content)} 字`;
+      $('favorite').setAttribute('aria-pressed',note.favorite);
+      $('favorite').setAttribute('aria-label',note.favorite?'取消收藏':'收藏笔记');
+      $('favorite').title=note.favorite?'取消收藏':'收藏笔记';
+      document.title=`${titleOf(note)} · 马克笔记`;
+    }
+    function renderEditor() {
+      const note=current(); $('editor').hidden=!note; $('empty-workspace').hidden=!!note;
+      ['favorite','export','delete'].forEach(id=>$(id).disabled=!note);
+      if (!note) { $('breadcrumb-title').textContent='我的笔记'; $('word-count').textContent='0 字'; document.title='马克笔记'; return; }
+      $('note-title').value=note.title; $('note-content').value=note.content; renderMeta();
+    }
+    function createNote() {
+      const now=stamp(); const note={id:uid(),title:'',content:'',favorite:false,createdAt:now,updatedAt:now};
+      notes.unshift(note);selectedId=note.id;filter='all';$('search').value='';save();renderList();renderEditor();closeSidebar();$('note-title').focus();
+    }
+    function editNote() { const note=current();if(!note)return;note.title=$('note-title').value;note.content=$('note-content').value;note.updatedAt=stamp();save();renderList();renderMeta(); }
+    function notify(message,undo=false){$('toast-message').textContent=message;$('undo').hidden=!undo;$('toast').hidden=false;}
+    function closeSidebar(){ $('sidebar').classList.remove('open');$('backdrop').classList.remove('open');$('open-list').setAttribute('aria-expanded','false');updateSidebarAccess(); }
+    function updateSidebarAccess(){ $('sidebar').inert=matchMedia('(max-width: 680px)').matches&&!$('sidebar').classList.contains('open'); }
+    $('new-note').addEventListener('click',createNote);$('empty-new').addEventListener('click',createNote);
+    $('note-title').addEventListener('input',editNote);$('note-content').addEventListener('input',editNote);
+    $('search').addEventListener('input',renderList);$('sort').addEventListener('change',renderList);
+    $('all-tab').addEventListener('click',()=>{filter='all';renderList();});$('star-tab').addEventListener('click',()=>{filter='star';renderList();});
+    $('favorite').addEventListener('click',()=>{const note=current();if(!note)return;note.favorite=!note.favorite;save();renderList();renderMeta();});
+    $('delete').addEventListener('click',()=>{const note=current();if(!note)return;$('delete-message').textContent=`「${titleOf(note)}」将被删除。删除后可通过页面底部的提示撤销。`;$('delete-dialog').showModal();});
+    $('cancel-delete').addEventListener('click',()=>$('delete-dialog').close());
+    $('confirm-delete').addEventListener('click',()=>{const note=current();if(!note)return;deleted={note,index:notes.indexOf(note)};notes=notes.filter(n=>n.id!==note.id);selectedId=visibleNotes()[0]?.id||notes[0]?.id||null;save();renderList();renderEditor();$('delete-dialog').close();notify('笔记已删除',true);if(!current())$('empty-new').focus();});
+    $('undo').addEventListener('click',()=>{if(!deleted)return;notes.splice(Math.min(deleted.index,notes.length),0,deleted.note);selectedId=deleted.note.id;deleted=null;filter='all';$('search').value='';save();renderList();renderEditor();$('toast').hidden=true;});
+    $('close-toast').addEventListener('click',()=>{$('toast').hidden=true;});
+    $('export').addEventListener('click',()=>{const note=current();if(!note)return;const blob=new Blob(['\uFEFF'+titleOf(note)+'\n\n'+note.content],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=titleOf(note).replace(/[<>:"/\\|?*\x00-\x1F]/g,'_').slice(0,100)+'.txt';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);notify('笔记已导出为 TXT');});
+    $('open-list').addEventListener('click',()=>{$('sidebar').classList.add('open');$('backdrop').classList.add('open');$('open-list').setAttribute('aria-expanded','true');updateSidebarAccess();$('search').focus();});
+    document.querySelector('.mobile-close').addEventListener('click',()=>{closeSidebar();$('open-list').focus();});$('backdrop').addEventListener('click',closeSidebar);
+    document.addEventListener('keydown',event=>{if(event.key==='Escape'&&$('sidebar').classList.contains('open')){closeSidebar();$('open-list').focus();}if(event.altKey&&event.key.toLowerCase()==='n'&&!$('delete-dialog').open){event.preventDefault();createNote();}if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='s'){event.preventDefault();save();}});
+    window.addEventListener('resize',updateSidebarAccess);
+    window.addEventListener('storage',event=>{if(event.key===KEY||event.key===null){storageConflict=true;storageLocked=true;save();}});
+    load();renderList();renderEditor();updateSidebarAccess();
+  })();
+  </script>
+</body>
+</html>
